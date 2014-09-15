@@ -1,0 +1,223 @@
+!!! 5
+html(lang='en')
+  head
+    link(rel='stylesheet', type='text/css', href='/stylesheets/pennstyle.css')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/mainstyle.css')
+    link(rel='stylesheet', type='text/css', href='/UI/chosen/docsupport/style.css')
+    link(rel='stylesheet', type='text/css', href='/UI/chosen/docsupport/prism.css')
+    link(rel='stylesheet', type='text/css', href='/UI/chosen/chosen.css')
+    link(rel='stylesheet', type='text/css', href='/UI/css/smoothness/jquery-ui-1.10.3.custom.css')
+    link(rel='stylesheet', type='text/css', href='/rate/rateit.css')
+
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js")
+    script(src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js")
+    script(src="/UI/js/jquery-ui-1.10.3.custom.js")
+    script(src="/UI/chosen/docsupport/prism.js")
+    script(src="/UI/chosen/chosen.jquery.js")
+    script(src="/rate/jquery.rateit.js")
+    script().
+      $(document).ready(function(e){
+        var selectedBoard;
+        var PinDialogOverlay;
+        $('.boardOptions').on('change', function(evt, params) {
+          selectedBoard = params.selected;
+        });
+        $('.pinme').overlay({mask: '#000', effect: 'apple',onBeforeLoad:function(e){
+          // alert('Begin Overlay');
+          readboardurl = "/readuserboard";
+          // alert(this.getTrigger().html());
+          PinDialogOverlay = this.getTrigger();
+          var objID = this.getTrigger().parent().parent().find("img").attr('objectID');
+          var objURL = this.getTrigger().parent().parent().find("img").attr('src');
+          // alert("ObjectID is "+$(this).parent().parent().find("img").attr("objectID"));
+          $.post(readboardurl,{url:objID},function(data){
+            //alert(data[0].BOARDNAME);
+            //alert($('.boardOptions').html());
+            $('.boardOptions').attr('objectID',objID);
+            $('.boardOptions').attr('objectURL',objURL);
+            $('.boardOptions').html(function(){
+              var newOptions;
+              for(var ind = 0; ind < data.length; ind++){
+                if (ind==0) {
+                  selectedBoard = data[ind].BOARDNAME;
+                  newOptions = '<option value="'+data[ind].BOARDNAME+'">'+data[ind].BOARDNAME+'</option>';
+                }
+                else{
+                  newOptions += '<option value="'+data[ind].BOARDNAME+'">'+data[ind].BOARDNAME+'</option>';
+                }
+              }
+              return newOptions;
+            });
+            $('.boardOptions').trigger('update');
+            $('.boardOptions').chosen({width:"95%"});
+          });
+        }});
+        $('#makeBoardDecsion').click(function(e){
+          // $('#boardselection').hide();
+          PinDialogOverlay.overlay().close();
+          var optionValues = [];
+          $('#selectTags').find("option[selected='selected']").each(function() {
+              optionValues.push($(this).val());
+          });
+          var realpinurl = "/finishpin";
+          // alert(selectedBoard);
+          $.post(realpinurl,{objID:$(".boardOptions").attr('objectID'),souID:"phantom",
+            bname:selectedBoard,
+            imageurl:$(".boardOptions").attr('objectURL'),
+            tags:optionValues},function(data) {
+            if (data.pinstate==false) {
+                alert("Already Pined");
+              }else{
+                alert("Pin Success");
+              }
+          });
+            
+        });
+        $(window).scroll(function() {
+          if($(window).scrollTop() + $(window).height() == $(document).height()) {
+              // This function will dynamically load more images
+              readmoreimageurl = "/readmoreimages";
+              $.post(readmoreimageurl,function(data){});
+          }
+        });
+        $('#cancelPin').click(function(){
+          // $('#boardselection').hide();
+          // alert('begin closing');
+          PinDialogOverlay.overlay().close();
+          // alert('end closing');
+        });
+        $("#addNewBoard").overlay({mask: '#000', effect: 'apple'});
+        $( "#privacyChoice" ).buttonset();
+        $( "#boardCreationForm" ).submit(function( event ) {
+          event.preventDefault();
+          $.post( "/boadCreation", $("#boardCreationForm").serialize()+'&'+$('#boardEditDescription').attr('name')+'='+$('#boardEditDescription').val(),function(data){
+            //alert(data.state);
+            if (data.state==true) {
+              //$("#creatBoardDialog").hide();
+              $("#addNewBoard").overlay().close();
+              return true;
+            }else{
+              alert("Create board not success");
+              return true;
+            }
+          });
+        });
+        $('#selectTags').chosen({width: "95%",no_results_text: "Press Enter to add"});
+        $('#selectTagsBox').keyup(function(e){
+          if (e.keyCode==13) {
+            enteringTags = $('#selectTagsBox').find('.search-field').find('input').attr('value');
+            $('#selectTags').append('<option value="'+enteringTags+'" selected="selected">'+enteringTags+'</option>');
+            $("#selectTags").trigger("chosen:updated");
+          }
+        });
+        $('#boardCreationCancelButton').click(function(){
+          $("#addNewBoard").overlay().close();
+        });
+        //CSS specification
+        $('#BoardLists').css("left",$('#wrapper').width()+5);
+        $('#searchbox').css("left",$('#wrapperSearch').width()+2);
+        $( window ).resize(function() {
+          $('#BoardLists').css("left",$('#wrapper').width()+5);
+          $('#searchbox').css("left",$('#wrapperSearch').width()+2);
+        });
+        // $('.rateit').rateit( { step : 1 , max : 5 } );
+        $('.titlButton').mouseenter(function(){
+          $(this).css('color','#FFFFFF');
+          $(this).parent().css('background','url(/UI/Divcolor.png)');
+        });
+        $('.titlButton').mouseleave(function(){
+          $(this).css('color','#000000');
+          $(this).parent().css('background','');
+        });
+      });
+      function img_rate_update(boardObj){
+        //alert('Begin Rating');
+        $('.rateit').rateit( { step:1 , max:5 });
+        boardObj.find('.pin').each(function(index,Element){
+          var rating = $(this).find('img').attr('rates');
+          if (rating != '') {
+            $(this).find('.rateit').rateit('value', $(this).find('img').attr('rates'));
+          }
+        });
+        $('.rateit').bind('rated', function () {
+           //alert('HaHa');
+           var rateValue = $(this).rateit('value');
+           //- var rateUrl = "/rateIt";
+           //alert(rateValue);
+           var rateUrl = "/rateCheck";
+           var rateObjectID = $(this).parent().find('img').attr('objectID');
+           var rateSourceID = $(this).parent().find('img').attr('sourceID');
+           var rateParent = $(this).parent();
+           // alert(rateObjectID);
+           // alert(rateSourceID);
+           $.post(rateUrl,{rate_value:rateValue, rate_objectID:rateObjectID, rate_sourceID:rateSourceID}, function(data){
+             // alert('I am');
+
+             if (data.result.length != 0) {
+               //- rateParent.find('.rateit').rateit('value', data.result[0].RATING);
+               // alert('I am');
+               var rateUrl = "/rateUpdate";
+               $.post(rateUrl,{rate_value:rateValue, rate_objectID:rateObjectID, rate_sourceID:rateSourceID},function(){
+                 // alert(rateValue);
+                 // alert(rateObjectID);
+                 // alert(rateSourceID);
+                 });
+             }
+             else {
+               // alert('I am');
+               var rateUrl = "/rateIt";
+               $.post(rateUrl,{rate_value:rateValue, rate_objectID:rateObjectID, rate_sourceID:rateSourceID},function(){
+                 // alert(rateValue);
+                 // alert(rateObjectID);
+                 // alert(rateSourceID);
+                 });
+             }
+             });
+          });
+      }
+
+  body
+    #titleBar
+      //=title
+      #webSiteTitle(onClick="location.href='/Reconmmendation'") imagenation
+      #searchBar
+        form(method='get',action='/basic_search')
+          input#SearchTextBox(type='text',name='name', value='')
+          input#SearchButton(type='submit', value='Search',name='searchbutton')
+      #addBoard.titlButtonDiv
+        button#addNewBoard.titlButton(type="button",rel="#creatBoardDialog") Create A Board
+      #returnToHome.titlButtonDiv
+        button#returnHomeButton.titlButton(type="button",onClick="location.href='/home'") Home
+      #returnFriend.titlButtonDiv
+        button#returnFriendButton.titlButton(type="button",onClick="location.href='/readfriend'") Friends
+      #logOut.titlButtonDiv
+        button#logOutButton.titlButton(type='button',onClick="location.href='/logout'") Logout
+      //#reconmmendation.titlButtonDiv
+      //  button#reconmmendationButton(type='button',onClick="location.href='/Reconmmendation'") Reconmmendation
+
+
+    block content
+
+    #boardselection(class="apple_overlay")
+      #selectionmenu
+        P
+          select.boardOptions.chosen-select(data-placeholder="Select Board")
+        P
+          div#selectTagsBox
+            select#selectTags(multiple,class="chosen-select",data-placeholder="Enter Tags",style="width:350px")
+              option(value="")
+        p
+          button#makeBoardDecsion(type="button") Comfirm
+          button#cancelPin(type="button") Cancel
+    #creatBoardDialog(class="apple_overlay")
+      form#boardCreationForm
+        input(type='text',name='boardName', value='')
+        #privacyChoice
+          input#private(type='radio',name="radio", value='private')
+          label(for='private') Private
+          input#public(type='radio',name="radio", value='public',checked="checked")
+          label(for='public') Public
+        textarea#boardEditDescription(form='boardCreationForm',name='boardDescription')
+        input(type='submit',value='Create',name='boardCreateButton')
+        button#boardCreationCancelButton(type='button') Cancel
+

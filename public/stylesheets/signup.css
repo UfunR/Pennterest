@@ -1,0 +1,118 @@
+#siteTitleSignup{
+	position: absolute;
+	left: 50%;
+	margin-left: -231px;
+	top: 10%;
+	margin-top: -48px;
+}
+#inputInfomrationSignup{
+	width: 450px;
+	position: absolute;
+	left: 50%;
+	margin-left: -221px;
+	top: 15%;
+}
+.inputBoxTag {
+  border: 0px;
+  /*-webkit-opacity: 0;
+  -moz-opacity: 0;
+  filter:alpha(opacity=0);*/
+  background: url(/UI/ButtonTransparent.png);
+  width: 380px;
+  height: 34px;
+  line-height: 32px;
+  font: 32px sans-serif;
+  color: #EEEEEE;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-left: -190px;
+}
+.inputBoxSignup{
+	width: 442px;
+	height: 56px;
+	/*background: url(/UI/InputBox.png) no-repeat;*/
+}
+#userNameBox{
+	position: absolute;
+	top: 20px;
+	background: url(/UI/SmallBox.png) no-repeat;
+}
+#passcodeBox{
+	position: absolute;
+	top: 70px;
+	background: url(/UI/SmallBox.png) no-repeat;
+}
+#passcodeBoxSec{
+	position: absolute;
+	top: 120px;
+	background: url(/UI/SmallBox.png) no-repeat;
+}
+#emailBox{
+	position: absolute;
+	top: 170px;
+	background: url(/UI/SmallBox.png) no-repeat;
+}
+#givennameBox{
+	position: absolute;
+	top: 220px;
+	background: url(/UI/SmallBox.png) no-repeat;
+}
+#surnameBox{
+	position: absolute;
+	top: 270px;
+	background: url(/UI/SmallBox.png) no-repeat;
+}
+#affiliationBox{
+	position: absolute;
+	top: 320px;
+	background: url(/UI/SmallBox.png) no-repeat;
+}
+#birthdayBox{
+	position: absolute;
+	top: 370px;
+	background: url(/UI/SmallBox.png) no-repeat;
+}
+#SignupButtonDiv{
+	position: absolute;
+	left: 50%;
+	top: 430px;
+	margin-left: -125px;
+	width: 100px;
+	height: 100px;
+	background: url(/UI/SignUp.png);
+}
+#cancelButtonDiv{
+	position: absolute;
+	left: 50%;
+	top: 430px;
+	margin-left: 35px;
+	width: 100px;
+	height: 100px;
+	background: url(/UI/Cancel.png);
+}
+.BoxCoverLayer{
+  width: 380px;
+  height: 34px;
+  line-height: 32px;
+  font: 30px sans-serif;
+  color: #EEEEEE;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-left: -190px;
+}
+#signupButton{
+	width: 100px;
+	height: 100px;
+	-webkit-opacity: 0;
+  -moz-opacity: 0;
+  filter:alpha(opacity=0);
+}
+#cancelButton{
+	width: 100px;
+	height: 100px;
+	-webkit-opacity: 0;
+  -moz-opacity: 0;
+  filter:alpha(opacity=0);
+}

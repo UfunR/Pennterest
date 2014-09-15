@@ -1,0 +1,6 @@
+export OCI_HOME=/Users/Adi/Documents/node/instantclient_11_2
+export OCI_LIB_DIR=$OCI_HOME
+export OCI_INCLUDE_DIR=$OCI_HOME/sdk/include
+export OCI_VERSION=11
+export NLS_LANG=AMERICAN_AMERICA.UTF8
+export DYLD_LIBRARY_PATH=$OCI_LIB_DIR

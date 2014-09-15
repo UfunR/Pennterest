@@ -1,0 +1,27 @@
+extend layoutmain
+
+block content
+  script.
+    $(function() {
+      $( "#boardList" ).selectable({
+        selected: function( event, ui ) {
+          $('#picturezone').empty();
+          if($('.ui-selected').attr('friendname')=='all'){
+              show_all_boards();
+            }else{
+              currentBoardName = $('.ui-selected').attr('friendname');
+              //show_one_board(currentBoardName);
+            }
+        }
+      });
+    });
+
+  #wrapper
+    #picturezone
+
+  #BoardLists 
+    p Boards
+    ol#boardList
+      li(class='ui-widget-content ui-selected',friendname='all') All
+      - for (var inx = 0; inx < results.length; inx++) 
+        li.ui-widget-content(realboard='1',friendname=results[inx].FOLLOWING)=results[inx].FOLLOWING

@@ -1,0 +1,27 @@
+extend layoutmain
+
+block content
+  link(rel='stylesheet', type='text/css', href='/stylesheets/researchstyle.css')
+  script().
+    $(function(){
+      img_rate_update($('#columns'));
+    });
+
+  #wrapperSearch
+    #columns
+      - for (var inx = 0; inx < results.queryresult.length; inx++) 
+        .pin
+          img(src=results.queryresult[inx].URL,objectID=results.queryresult[inx].OBJECTID,sourceID=results.queryresult[inx].SOURCEID,rates=results.queryresult[inx].RATING)
+          p
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          div.rateit
+          p(style="height:25px;")
+          p(style="height:25px;")
+            button.pinme(type="button",rel="#boardselection") Pin
+  #searchbox
+    #columns2
+      -for (var inx = 0; inx <results.bingresult.length; inx++)
+        .pin
+          img(src=results.bingresult[inx].MediaUrl,objectID=0,width="80%")
+          p
+            button.pinme(type="button",rel="#boardselection") Pin

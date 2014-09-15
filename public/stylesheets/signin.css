@@ -1,0 +1,111 @@
+#siteTitle{
+	position: absolute;
+	left: 50%;
+	margin-left: -231px;
+	top: 25%;
+	margin-top: -48px;
+}
+.inputBoxTag {
+  border: 0px;
+  /*-webkit-opacity: 0;
+  -moz-opacity: 0;
+  filter:alpha(opacity=0);*/
+  background: url(/UI/ButtonTransparent.png);
+  width: 420px;
+  height: 40px;
+  line-height: 38px;
+  font: 34px sans-serif;
+  color: #EEEEEE;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  margin-left: -210px;
+}
+#inputInfomration{
+	width: 450px;
+	position: absolute;
+	left: 50%;
+	margin-left: -221px;
+	top: 35%;
+}
+#userNameBox{
+	position: absolute;
+	top: 20px;
+	background: url(/UI/InputBox.png) no-repeat;
+}
+#passcodeBox{
+	position: absolute;
+	top: 84px;
+	background: url(/UI/InputBox.png) no-repeat;
+}
+.inputBox{
+	width: 442px;
+	height: 56px;
+	/*background: url(/UI/InputBox.png) no-repeat;*/
+}
+#loginButtonDiv{
+	position: absolute;
+	left: 50%;
+	top: 170px;
+	margin-left: -125px;
+	width: 100px;
+	height: 100px;
+	background: url(/UI/SignIn.png);
+}
+#signupButtonDiv{
+	position: absolute;
+	left: 50%;
+	top: 170px;
+	margin-left: 35px;
+	width: 100px;
+	height: 100px;
+	background: url(/UI/SignUp.png);
+}
+#loginButton{
+	width: 100px;
+	height: 100px;
+	-webkit-opacity: 0;
+  -moz-opacity: 0;
+  filter:alpha(opacity=0);
+}
+#signupButton{
+	width: 100px;
+	height: 100px;
+	-webkit-opacity: 0;
+  -moz-opacity: 0;
+  filter:alpha(opacity=0);
+}
+
+#userNameBoxCoverLayer{
+  width: 420px;
+  height: 40px;
+  line-height: 38px;
+  font: 34px sans-serif;
+  color: #EEEEEE;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  margin-left: -210px;
+}
+#passcodeBoxCoverLayer{
+	width: 420px;
+  height: 40px;
+  line-height: 38px;
+  font: 34px sans-serif;
+  color: #EEEEEE;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  margin-left: -210px;
+}
+#passcodeSecBoxCoverLayer{
+	width: 420px;
+  height: 40px;
+  line-height: 38px;
+  font: 34px sans-serif;
+  color: #EEEEEE;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  margin-left: -210px;
+}

@@ -1,0 +1,130 @@
+extend layoutmain
+
+block content
+
+  script.
+    $(function() {
+      $( "#boardList" ).selectable({
+        selected: function( event, ui ) {
+          $('#picturezone').empty();
+          if($('.ui-selected').attr('boardname')=='all'){
+              show_all_boards();
+            }else{
+              currentBoardName = $('.ui-selected').attr('boardname');
+              show_one_board(currentBoardName);
+            }
+            // $('#BoardLists').height($('#picturezone').height());
+        }
+      });
+      show_all_boards();
+      var length = $('#wrapper').height() - $('#BoardLists').height() + $('#wrapper').offset().top;
+      $(window).scroll(function () {
+          var scroll = $(this).scrollTop();
+          var height = $('#BoardLists').height() + 'px';
+          // alert(scroll);
+          if (scroll>=80) {
+            $('#BoardLists').css({
+                  'position': 'fixed',
+                  'top': '0px'
+              });
+          }else{
+            $('#BoardLists').css({
+                  'position': 'absolute',
+                  'top': '81px'
+              });
+          }
+      });
+    });
+    function show_all_boards(){
+      $.each($("li[realboard=1]"),function(){
+        var currentBoardName = $(this).attr('boardname');
+        show_one_board(currentBoardName);
+      });
+    }
+    function show_one_board(currentBoardName){
+      var request_url = '/load_board';
+      $.post(request_url,{boardname:currentBoardName},function(data){
+        // alert(data.results[0].URL);
+        if (data.results.length!=0) {
+          currentBoardName = currentBoardName.replace(/\s/g,"_");
+          $('#picturezone').append('<p class="boardtitle">'+currentBoardName+'</p><p><div id="boad_'+currentBoardName+'" class="columns"></div></p>');
+          for (var idx = 0; idx <data.results.length; idx++) {
+            var new_div = '<div class="pin"><img src="'+data.results[idx].URL+'" objectID="'+data.results[idx].OBJECTID+ '" sourceID="'+data.results[idx].SOURCEID+
+            '" rates="'+data.results[idx].RATING +'"><p>'+data.results[idx].TAG+'</p><p><div class="rateit"></div></p><p style="height:15px;"><!--<button class="pinme" type="button" rel="#boardselection">Pin</button>--></p></div>';
+            $('#boad_'+currentBoardName).append(new_div);
+            // $('.rateit').rateit({ step : 1 , max : 5 });
+            //- var rateUrl = "/rateCheck";
+            //- var rateObjectID = data.results[idx].OBJECTID;
+            //- var rateSourceID = data.results[idx].SOURCEID;   
+            //- $.post(rateUrl,{rate_objectID:rateObjectID, rate_sourceID:rateSourceID}, function(data){
+            //-   if (data.result.length != 0){
+            //-      $('#boad_'+currentBoardName).find('.rateit').rateit('value', data.result[0].RATING);
+            //-   }
+            //-   });
+          };
+          img_rate_update($('#boad_'+currentBoardName));
+          // $('#BoardLists').height($('#picturezone').height());
+          // alert($(document).height()-81);
+          // $('#BoardLists').height($(document).height()-81);
+          // $('.rateit').rateit( { step : 1 , max : 5 } , function(){alert('I am here !')});
+          // $('.rateit').rateit('value', 3);
+        }
+      });
+       
+    }
+    // function img_rate_update(boardObj){
+    //   //alert('Begin Rating');
+    //   $('.rateit').rateit( { step:1 , max:5 });
+    //   boardObj.find('.pin').each(function(index,Element){
+    //     var rating = $(this).find('img').attr('rates');
+    //     if (rating != '') {
+    //       $(this).find('.rateit').rateit('value', $(this).find('img').attr('rates'));
+    //     }
+    //   });
+    //   $('.rateit').bind('rated', function () {
+    //      //alert('HaHa');
+    //      var rateValue = $(this).rateit('value');
+    //      //- var rateUrl = "/rateIt";
+    //      //alert(rateValue);
+    //      var rateUrl = "/rateCheck";
+    //      var rateObjectID = $(this).parent().find('img').attr('objectID');
+    //      var rateSourceID = $(this).parent().find('img').attr('sourceID');
+    //      var rateParent = $(this).parent();
+    //      // alert(rateObjectID);
+    //      // alert(rateSourceID);
+    //      $.post(rateUrl,{rate_value:rateValue, rate_objectID:rateObjectID, rate_sourceID:rateSourceID}, function(data){
+    //        // alert('I am');
+    //        if (data.result.length != 0) {
+    //          //- rateParent.find('.rateit').rateit('value', data.result[0].RATING);
+    //          // alert('I am');
+    //          var rateUrl = "/rateUpdate";
+    //          $.post(rateUrl,{rate_value:rateValue, rate_objectID:rateObjectID, rate_sourceID:rateSourceID},function(){
+    //            // alert(rateValue);
+    //            // alert(rateObjectID);
+    //            // alert(rateSourceID);
+    //            });
+    //        }
+    //        else {
+    //          // alert('I am');
+    //          var rateUrl = "/rateIt";
+    //          $.post(rateUrl,{rate_value:rateValue, rate_objectID:rateObjectID, rate_sourceID:rateSourceID},function(){
+    //            // alert(rateValue);
+    //            // alert(rateObjectID);
+    //            // alert(rateSourceID);
+    //            });
+    //        }
+    //        });
+    //     });
+    // }
+  #wrapper
+    #picturezone
+
+  #BoardLists 
+    p.boardOwerner=title+"'s Boards"
+    ol#boardList
+      li(class='ui-widget-content ui-selected',boardname='all') All
+      - for (var inx = 0; inx < results.length; inx++) 
+        li.ui-widget-content(realboard='1',boardname=results[inx].BOARDNAME)=results[inx].BOARDNAME
+
+
+

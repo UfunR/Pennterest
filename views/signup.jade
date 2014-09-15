@@ -1,0 +1,118 @@
+extend layout
+block content
+	link(rel='stylesheet', href='/stylesheets/signup.css')
+	script(type='text/javascript').
+		$(document).ready(function(e) {
+			$("input[name=passwordShow]").keyup(function(){
+				var password = $( "input[name=passwordShow]" ).val();
+				password = hex_sha1(password);
+				$("input[name=password]").val(password);
+			});
+			$("input[name=password2Show]").keyup(function(){
+				var password2 = $( "input[name=password2Show]" ).val();
+				password2 = hex_sha1(password2);
+				$("input[name=password2]").val(password2);
+			});
+			$('#signupForm').submit(function(e){
+				$('input[name=passwordShow]').val($('#realPassWord').val().substring(0,$("input[name=passwordShow]").val().length));
+				$('input[name=password2Show]').val($('#realPassWord2').val().substring(0,$("input[name=password2Show]").val().length));
+			});
+			$('input[name=login]').focusin(function(){
+				$(this).parent().find('.BoxCoverLayer').hide();
+			});
+			$('input[name=login]').blur(function(){
+				if($(this).val()==''){$(this).parent().find('.BoxCoverLayer').show();}
+			});
+			$('input[name=passwordShow]').focusin(function(){
+				$(this).parent().find('.BoxCoverLayer').hide();
+			});
+			$('input[name=passwordShow]').blur(function(){
+				if($(this).val()==''){$(this).parent().find('.BoxCoverLayer').show();}
+			});
+			$('input[name=password2Show]').focusin(function(){
+				$(this).parent().find('.BoxCoverLayer').hide();
+			});
+			$('input[name=password2Show]').blur(function(){
+				if($(this).val()==''){$(this).parent().find('.BoxCoverLayer').show();}
+			});
+			$('input[name=email]').focusin(function(){
+				$(this).parent().find('.BoxCoverLayer').hide();
+			});
+			$('input[name=email]').blur(function(){
+				if($(this).val()==''){$(this).parent().find('.BoxCoverLayer').show();}
+			});
+			$('input[name=givenname]').focusin(function(){
+				$(this).parent().find('.BoxCoverLayer').hide();
+			});
+			$('input[name=givenname]').blur(function(){
+				if($(this).val()==''){$(this).parent().find('.BoxCoverLayer').show();}
+			});
+			$('input[name=surname]').focusin(function(){
+				$(this).parent().find('.BoxCoverLayer').hide();
+			});
+			$('input[name=surname]').blur(function(){
+				if($(this).val()==''){$(this).parent().find('.BoxCoverLayer').show();}
+			});
+			$('input[name=affiliation]').focusin(function(){
+				$(this).parent().find('.BoxCoverLayer').hide();
+			});
+			$('input[name=affiliation]').blur(function(){
+				if($(this).val()==''){$(this).parent().find('.BoxCoverLayer').show();}
+			});
+			$('input[name=birthday]').focusin(function(){
+				$(this).parent().find('.BoxCoverLayer').hide();
+			});
+			$('input[name=birthday]').blur(function(){
+				if($(this).val()==''){$(this).parent().find('.BoxCoverLayer').show();}
+			});
+			$('#SignupButtonDiv').mouseenter(function(){
+				$('#SignupButtonDiv').css('background','url(/UI/SignUpOn.png)');
+			});
+			$('#SignupButtonDiv').mouseleave(function(){
+				$('#SignupButtonDiv').css('background','url(/UI/SignUp.png)');
+			});
+			$('#cancelButtonDiv').mouseenter(function(){
+				$('#cancelButtonDiv').css('background','url(/UI/CancelOn.png)');
+			});
+			$('#cancelButtonDiv').mouseleave(function(){
+				$('#cancelButtonDiv').css('background','url(/UI/Cancel.png)');
+			});
+		});
+	#siteTitleSignup
+		img(src="/UI/Imagenation.png")
+	#inputInfomrationSignup
+		form#signupForm(method='post', action='/')
+			.inputBoxSignup#userNameBox
+				.BoxCoverLayer username
+				input.inputBoxTag(name='login', type="text",value='')
+			.inputBoxSignup#passcodeBox
+				.BoxCoverLayer passcode
+				input.inputBoxTag(name='passwordShow', type="password",value='')
+			.inputBoxSignup#passcodeBoxSec
+				.BoxCoverLayer re-enter passcode
+				input.inputBoxTag(name='password2Show', type="password",value='')
+			.inputBoxSignup#emailBox
+				.BoxCoverLayer email
+				input.inputBoxTag(name='email', type="text",value='')
+			.inputBoxSignup#givennameBox
+				.BoxCoverLayer givenname
+				input.inputBoxTag(name='givenname', type="text",value='')
+			.inputBoxSignup#surnameBox
+				.BoxCoverLayer surname
+				input.inputBoxTag(name='surname', type="text",value='')
+			.inputBoxSignup#affiliationBox
+				.BoxCoverLayer affiliation
+				input.inputBoxTag(name='affiliation', type="text",value='')
+			.inputBoxSignup#birthdayBox
+				.BoxCoverLayer 
+				input.inputBoxTag(name='birthday', type="date",value='')
+			
+			.hiddenArea
+				input#realPassWord(type='hidden',name='password',value='')	
+				input#realPassWord2(type='hidden',name='password2',value='')
+			#SignupButtonDiv
+				input#signupButton(type='submit', value='signup', onClick='document.getElementById(\'signupForm\').action=\'/signup\';')
+			#cancelButtonDiv
+				input#cancelButton(type='submit', value='cancel', onClick='document.getElementById(\'signupForm\').action="/";')
+
+

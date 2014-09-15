@@ -1,0 +1,242 @@
+body {
+	background: url(http://subtlepatterns.com/patterns/scribble_light.png) ;
+	/*position: absolute;*/
+}
+#searchBar{
+	position: absolute;
+	top: 30px;
+	left: 5px;
+	width: 270px;
+	height: 24px;
+}
+#SearchTextBox{
+	position: absolute;
+	width: 195px;
+	height: 24px;
+	color: #666666;
+	font: 22px sans-serif;
+	border-width: 1px;
+	left: 0px;
+}
+#SearchButton{
+	position: absolute;
+	left: 197px;
+	width: 75px;
+	height: 28px;
+	color: #666666;
+	font: 20px sans-serif;
+	border-width: 1px;
+	cursor: pointer;
+	/*background:#6cf3ff;*/
+}
+#webSiteTitle{
+	position: absolute;
+	width: 150px;
+	color: #666666;
+	font: 26px sans-serif;
+	left: 50%;
+	margin-left: -75px;
+	top: 20px;
+	cursor: pointer;
+}
+#titleBar{
+	width: 100%;
+	min-width: 1024px;
+	height: 80px;
+	background: #FFFFFF;
+	border-bottom: #888888 solid 1px;
+	position: absolute;
+}
+#addBoard{
+	position: absolute;
+	width: 130px;
+	bottom: 1px;
+	right: 394px;
+	float: right;
+	height: 100%;
+	/*background-image: url(/UI/Divcolor.png);*/
+}
+#addNewBoard{
+	position: absolute;
+	width: 130px;
+	bottom: 0px;
+	background: url(/UI/ButtonTransparent.png);
+	border:0px;
+	cursor: pointer;
+}
+/*#reconmmendation{
+	position: absolute;
+	width: 130px;
+	bottom: 1px;
+	right: 525px;
+	float: right;
+	height: 100%;
+}
+#reconmmendationButton{
+	position: absolute;
+	width: 130px;
+	bottom: 0px;
+	background: url(/UI/ButtonTransparent.png);
+	border:0px;
+	cursor: pointer;
+}*/
+#returnToHome{
+	position: absolute;
+	width: 130px;
+	bottom: 1px;
+	right: 263px;
+	float: right;
+	height: 100%;
+}
+#returnHomeButton{
+	position: absolute;
+	width: 130px;
+	bottom: 0px;
+	background: url(/UI/ButtonTransparent.png);
+	border:0px;
+	cursor: pointer;
+}
+#returnFriend{
+	position: absolute;
+	width: 130px;
+	bottom: 1px;
+	right: 132px;
+	float: right;
+	height: 100%;
+}
+#returnFriendButton{
+	position: absolute;
+	width: 130px;
+	bottom: 0px;
+	background: url(/UI/ButtonTransparent.png);
+	border:0px;
+	cursor: pointer;
+}
+#logOut{
+	position: absolute;
+	width: 130px;
+	bottom: 1px;
+	right: 1px;
+	float: right;
+	height: 100%;
+}
+#logOutButton{
+	position: absolute;
+	width: 130px;
+	bottom: 0px;
+	background: url(/UI/ButtonTransparent.png);
+	border:0px;
+	cursor: pointer;
+}
+
+
+#columns {
+	-webkit-column-count: 3;
+	-webkit-column-gap: 10px;
+	-webkit-column-fill: auto;
+	-moz-column-count: 3;
+	-moz-column-gap: 10px;
+	-moz-column-fill: auto;
+	column-count: 3;
+	column-gap: 15px;
+	column-fill: auto;
+}
+
+.pin {
+	display: inline-block;
+	background: #FEFEFE;
+	border: 2px solid #FAFAFA;
+	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+	margin: 0 2px 15px;
+	-webkit-column-break-inside: avoid;
+	-moz-column-break-inside: avoid;
+	column-break-inside: avoid;
+	padding: 15px;
+	padding-bottom: 5px;
+	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
+	opacity: 1;
+	
+	-webkit-transition: all .2s ease;
+	-moz-transition: all .2s ease;
+	-o-transition: all .2s ease;
+	transition: all .2s ease;
+}
+
+.pin img {
+	width: 100%;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 15px;
+	margin-bottom: 5px;
+}
+
+.pin p {
+	font: 12px/18px Arial, sans-serif;
+	color: #333;
+	margin: 0;
+}
+
+@media (min-width: 960px) {
+	#columns {
+		-webkit-column-count: 4;
+		-moz-column-count: 4;
+		column-count: 4;
+	}
+}
+
+@media (min-width: 1100px) {
+	#columns {
+		-webkit-column-count: 5;
+		-moz-column-count: 5;
+		column-count: 5;
+	}
+}
+
+#columns:hover .pin:not(:hover) {
+	opacity: 0.4;
+}
+
+/*#boardselection{
+	display:none;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	padding: 0px;
+	background: #334455;
+}
+#selectionmenu{
+	text-align:center;
+  margin:0 auto;
+  width: 200px;
+  height: 100px;
+  background: #FFFFFF;
+}*/
+
+#creatBoardDialog {
+	display: none;
+    width:500px;
+    height:300px;
+    padding:0px;
+    background-image:url(/image/bkground.jpg);
+    color:#fff;
+    padding:50px 70px;
+}
+#boardselection{
+	display: none;
+  width:500px;
+  height:300px;
+  padding:0px;
+  background-image:url(/image/bkground.jpg);
+  color:#fff;
+  padding:50px 70px;
+}
+
+.rateit{
+	height: 20px;
+	width: 80px;
+}
+
+.chosen-drop li{
+	color: #333333;
+}

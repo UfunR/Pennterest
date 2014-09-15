@@ -1,0 +1,23 @@
+#passcodeBoxSec{
+	position: absolute;
+	top: 148px;
+	background: url(/UI/InputBox.png) no-repeat;
+}
+#loginButtonDiv{
+	position: absolute;
+	left: 50%;
+	top: 234px;
+	margin-left: -125px;
+	width: 100px;
+	height: 100px;
+	background: url(/UI/SignIn.png);
+}
+#signupButtonDiv{
+	position: absolute;
+	left: 50%;
+	top: 234px;
+	margin-left: 35px;
+	width: 100px;
+	height: 100px;
+	background: url(/UI/SignUp.png);
+}

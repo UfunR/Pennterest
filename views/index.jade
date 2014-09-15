@@ -1,0 +1,87 @@
+// Basic Jade specification for querying for an actor
+// Inherits from layout 
+extend layout
+// Then we produce a form that triggers /actor once
+// the user hits Submit
+block content
+	link(rel='stylesheet', href='/stylesheets/signin.css')
+	if results.state == 'case3' || results.state == 'case4'
+		link(rel='stylesheet', href='/stylesheets/signinextra.css')
+	script(type='text/javascript').
+		$(document).ready(function(e) {
+			$("input[name=passwordShow]").keyup(function(){
+				var password = $( "input[name=passwordShow]" ).val();
+				password = hex_sha1(password);
+				$("input[name=password]").val(password);
+			});
+			$("input[name=passwordComfirmationShow]").keyup(function(){
+				var passwordComfirm = $( "input[name=passwordComfirmationShow]" ).val();
+				passwordComfirm = hex_sha1(passwordComfirm);
+				$("input[name=passwordComfirmation]").val(passwordComfirm);
+			});
+			$('#loginButton').click(function(){
+				$("input[name=passwordShow]").val($("input[name=password]").val().substring(0,$("input[name=passwordShow]").val().length));
+				$("input[name=passwordComfirmationShow]").val($("input[name=passwordComfirmation]").val().substring(0,$("input[name=passwordComfirmationShow]").val().length));
+			});
+			$('#loginButtonDiv').mouseenter(function(){
+				$('#loginButtonDiv').css('background','url(/UI/SignInOn.png)');
+			});
+			$('#loginButtonDiv').mouseleave(function(){
+				$('#loginButtonDiv').css('background','url(/UI/SignIn.png)');
+			});
+			$('#signupButtonDiv').mouseenter(function(){
+				$('#signupButtonDiv').css('background','url(/UI/SignUpOn.png)');
+			});
+			$('#signupButtonDiv').mouseleave(function(){
+				$('#signupButtonDiv').css('background','url(/UI/SignUp.png)');
+			});
+			$('input[name=username]').focusin(function(){
+				$('#userNameBoxCoverLayer').hide();
+			});
+			$('input[name=username]').blur(function(){
+				if($(this).val()==''){$('#userNameBoxCoverLayer').show();}
+			});
+			$('input[name=passwordShow]').focusin(function(){
+				$('#passcodeBoxCoverLayer').hide();
+			});
+			$('input[name=passwordShow]').blur(function(){
+				if($(this).val()==''){$('#passcodeBoxCoverLayer').show();}
+			});
+			$('input[name=passwordComfirmationShow]').focusin(function(){
+				$('#passcodeSecBoxCoverLayer').hide();
+			});
+			$('input[name=passwordComfirmationShow]').blur(function(){
+				if($(this).val()==''){$('#passcodeSecBoxCoverLayer').show();}
+			});
+		});
+	#siteTitle
+		img(src="/UI/Imagenation.png")
+	#inputInfomration
+		form#loginForm(method='post', action='/')
+			.inputBox#userNameBox
+				if results.state == 'case3' || results.state == 'case4'
+					#userNameBoxCoverLayer
+					input.inputBoxTag(name='username', type="text",value=results.usernameEntered)
+				else
+					#userNameBoxCoverLayer username
+					input.inputBoxTag(name='username', type="text",value="")
+			.inputBox#passcodeBox
+				if results.state == 'case2'
+						#passcodeBoxCoverLayer passcode wrong
+					else
+						if results.state == 'case4'
+							#passcodeBoxCoverLayer missmatched
+						else
+							#passcodeBoxCoverLayer passcode
+				input.inputBoxTag(name='passwordShow', type="password",value='')
+			if results.state == 'case3' || results.state == 'case4'
+				.inputBox#passcodeBoxSec
+					#passcodeSecBoxCoverLayer Comfirm
+					input.inputBoxTag(name='passwordComfirmationShow',type="password",value='')
+			.hiddenArea
+				input(type='hidden',name='password',value='')		
+				input(type='hidden',name='passwordComfirmation',value='')
+			#loginButtonDiv
+				input#loginButton(type='submit', value='Login',name = 'submitButton', onClick='document.getElementById(\'loginForm\').action=\'/router\';')
+			#signupButtonDiv
+				input#signupButton(type='submit', value='signup', onClick='document.getElementById(\'loginForm\').action=\'/signup\';')
